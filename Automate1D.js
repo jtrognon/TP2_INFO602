@@ -1,5 +1,5 @@
 const automate1D = [];
-automate1D.length = 11;
+automate1D.length = 99;
 automate1D.fill("0");
 
 const regle = {
