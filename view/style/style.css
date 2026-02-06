@@ -1,0 +1,14 @@
+h1 {
+    text-align: center;
+}
+
+td{
+    width: 10px;
+    height: 10px;
+
+    background-color: red;
+}
+
+.alive{
+    background-color: black;
+}
