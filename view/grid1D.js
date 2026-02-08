@@ -1,38 +1,51 @@
 class Grid1D {
+    container;
+
     // Cells
     nbCells;
     values; // cells' values
     cells; // graphical cells
 
-    // Settings
-    updateTime; // time out between each update
-    static MS = 1; // value of 1 millisecond
+    constructor(container, values) {
+        this.container = container;
 
-    constructor(container, values, updateTime) {
         // Cells
         this.nbCells = values.length;
         this.values = values;
+        
+        this.createView();
+
+        window.addEventListener("resize", _ => {
+            this.destroyView();
+            this.createView();
+        })
+    }
+
+    createView(){
         this.cells = [];
-
-        // Settings
-        this.updateTime = updateTime;
-
-
 
         // Grid
         let grid = document.createElement("table");
         grid.id = "grid1D";
-        container.appendChild(grid);
-
-        // line
-        let line = document.createElement("tr");
-        grid.appendChild(line);
-
+        this.container.appendChild(grid);
+        
         // init cells
-        for (let i = 0; i < this.nbCells; i++){
-            let cell = document.createElement("td");
-            this.cells.push(cell);
-            line.appendChild(cell)
+        let nbRows = Math.ceil(this.nbCells / (document.body.clientWidth * 0.8 / 20));
+        let maxNbCellsPerRow = Math.ceil(this.nbCells / nbRows);
+        
+
+        for (let i = 0; i < nbRows; i++){
+            let nbCellsPerRow = (i+1 < nbRows || this.nbCells % maxNbCellsPerRow == 0) ? maxNbCellsPerRow : (this.nbCells % maxNbCellsPerRow);
+
+            // line
+            let line = document.createElement("tr");
+            grid.appendChild(line);
+
+            for (let j = 0; j < nbCellsPerRow; j++) {                
+                let cell = document.createElement("td");
+                this.cells.push(cell);
+                line.appendChild(cell)
+            }
         };
 
 
@@ -41,11 +54,16 @@ class Grid1D {
 
     updateGrid(){
         for (let i = 0; i < this.nbCells; i++) {
-            if (this.values[i] == 1){
+            if (this.values[i] == 1 && !this.cells[i].classList.contains("alive")){
                 this.cells[i].classList.add("alive");
-            } else {
+            } else if (this.cells[i].classList.contains("alive")) {
                 this.cells[i].classList.remove("alive");
             }
         }
+    }
+
+    destroyView(){
+        let grid = document.querySelector("#grid1D");
+        this.container.removeChild(grid);
     }
 }
