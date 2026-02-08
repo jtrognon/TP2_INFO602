@@ -18,7 +18,6 @@ class Grid1D {
         this.updateTime = updateTime;
 
 
-
         // Grid
         let grid = document.createElement("table");
         grid.id = "grid1D";

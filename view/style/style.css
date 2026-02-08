@@ -1,14 +1,123 @@
-h1 {
+:root{
+    /* color palette */
+    --lighterHay: #ebb358;
+    --hay: #c89648;
+    
+    --green: #4e7440;
+    --darkGreen: #38562d;
+    --darkerGreen: #273b1f;
+    
+    --brown: #74574f;
+    --darkBrown: #5c3411;
+    --darkerBrown: #634841;
+    
+    --grey: #bca37f;
+    
+    --greenShadow: #273b1f30;
+    --shadow: 0px 2px 2px 3px var(--greenShadow);
+
+}
+
+
+
+/* General */
+
+html, body{
+    margin: 0; /* removing useless margin */
+    padding: 0;
+}
+
+body{
+    /* size */
+    padding: 0 5vw;
+    width: 90vw;
+    height: 100vh;
+
+    /* text */
+    font-family: Arial, Helvetica, sans-serif;
+
+    /* background */
+    background: linear-gradient(to bottom, var(--lighterHay), var(--hay));
+    background-attachment: fixed;
+}
+
+h1{
+    /* size */
+    padding: 10px 0;
+
+    /* text */
     text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    /* color */
+    background-color: var(--darkGreen);
+    color: var(--lighterHay);
+    
+    /* border */
+    border: 3px solid var(--darkerGreen);
+    border-radius: 10px;
+
+    /* Shadow */
+    box-shadow: var(--shadow);
+}
+
+
+section{
+    /* display */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5vh;
+
+    /* position + size */
+    padding: 10px;
+    padding-bottom: 30px;
+
+    /* color */
+    background: linear-gradient(to bottom, var(--green), var(--darkGreen));
+
+    /* border */
+    border: 3px solid var(--darkerGreen);
+    border-radius: 10px;
+
+    /* shadow */
+    box-shadow: var(--shadow);
+}
+
+
+h2{
+    color: var(--lighterHay);
+}
+
+
+
+table{
+    border-spacing: 0;
+    border: 1px solid var(--darkBrown);
+    border-radius: 5px;
+    /* border-collapse: collapse; */
 }
 
 td{
-    width: 10px;
-    height: 10px;
+    width: 20px;
+    height: 20px;
 
-    background-color: red;
+    background: linear-gradient(var(--brown), var(--darkerBrown));
+
+    border: 1px solid var(--darkBrown);
 }
 
-.alive{
-    background-color: black;
+td:first-child{
+    border-radius: 5px 0 0 5px;
+}
+
+td:last-child{
+    border-radius: 0 5px 5px 0;
+}
+
+
+.alive::after{
+    content: "\1F423"; /* chicken emoji */
 }
