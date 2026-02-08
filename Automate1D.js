@@ -1,29 +1,43 @@
-const automate1D = [];
-automate1D.length = 99;
-automate1D.fill("0");
+class Automate1D{
+    length;
+    automate1D;
+    regle;
 
-const regle = {
-    "111" : "0",
-    "110" : "1",
-    "101" : "1",
-    "100" : "0",
-    "011" : "1",
-    "010" : "1",
-    "001" : "1",
-    "000" : "0"
-}
+    constructor(length){
+        this.length = length;
+        this.automate1D = [];
+        this.automate1D.length = length;
+        this.automate1D.fill("0");
+        this.regle = {
+            "111" : "0",
+            "110" : "1",
+            "101" : "1",
+            "100" : "0",
+            "011" : "1",
+            "010" : "1",
+            "001" : "1",
+            "000" : "0"
+        }
 
-function initAutomate(automate1D) {
-    automate1D[Math.floor(automate1D.length/2)] = "1";
-}
-
-function next(automate1D){
-    const length = automate1D.length-1;
-    automate1D[0] = regle["0"+automate1D[0]+automate1D[1]];
-
-    for (let i=1; i<length; i++) {
-        automate1D[i] = regle[automate1D[i-1]+automate1D[i]+automate1D[i+1]];
+        this.initAutomate();
+        //console.log(this.automate1D);
+        this.next();
+        console.log(this.automate1D);
     }
 
-    automate1D[length] = regle[automate1D[length-1]+automate1D[length]+"0"];
+    initAutomate() {
+        this.automate1D[Math.floor(this.length/2)] = "1";
+    }
+
+    next(){
+        this.automate1D[0] = this.regle["0"+this.automate1D[0]+this.automate1D[1]];
+
+        for (let i=1; i<(this.length)-1; i++) {
+            this.automate1D[i] = this.regle[this.automate1D[i-1]+this.automate1D[i]+this.automate1D[i+1]];
+        }
+
+        this.automate1D[(this.length)-1] = this.regle[this.automate1D[(this.length)-2]+this.automate1D[(this.length)-1]+"0"];
+    }
 }
+
+new Automate1D(100);
