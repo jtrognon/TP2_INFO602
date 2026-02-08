@@ -1,5 +1,11 @@
 class MainView {
-    constructor() {
+    // Settings
+    updateTime; // time out between each update
+    static MS = 1; // value of 1 millisecond
+
+    constructor(updateTime) {
+        this.updateTime = updateTime;
+
         // Title
         const title = document.createElement('h1');
         title.innerText = "Automate Cellulaire";
@@ -23,6 +29,12 @@ class MainView {
         section1D.appendChild(title);
 
         // Grid
-        let grid1D = new Grid1D(section1D, [0, 1, 1, 0, 1, 0], 10 * Grid1D.MS);
+        let automate1D = new Automate1D(100)
+        let grid1D = new Grid1D(section1D, automate1D.getArray());
+
+        setInterval(_ => {
+            automate1D.next();
+            grid1D.updateGrid();
+        }, this.updateTime)
     }
 }

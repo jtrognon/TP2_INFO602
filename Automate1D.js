@@ -20,13 +20,15 @@ class Automate1D{
         }
 
         this.initAutomate();
-        //console.log(this.automate1D);
         this.next();
-        console.log(this.automate1D);
     }
 
     initAutomate() {
         this.automate1D[Math.floor(this.length/2)] = "1";
+    }
+
+    getArray(){
+        return this.automate1D;
     }
 
     next(){
@@ -40,4 +42,4 @@ class Automate1D{
     }
 }
 
-new Automate1D(100);
+// new Automate1D(100);
