@@ -22,7 +22,7 @@ class Automate1D{
         this.initAutomate();
         //console.log(this.automate1D);
         this.next();
-        console.log(this.automate1D);
+        //console.log(this.automate1D);
     }
 
     initAutomate() {
