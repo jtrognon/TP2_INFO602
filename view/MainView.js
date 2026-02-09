@@ -88,8 +88,8 @@ class MainView {
         sectionEpidemic.appendChild(title);
 
         // Grid
-        let epidemic = new Epidemie(10, 10, 0.5, 0.05)
-        let gridEpidemic = new GridEpidemic(sectionEpidemic, epidemic.getGrid(), 10, 10);
+        let epidemic = new Epidemie(32, 32, 0.5, 0.5)
+        let gridEpidemic = new GridEpidemic(sectionEpidemic, epidemic.getGrid(), 32, 32);
 
         setInterval(_ => {
             epidemic.next();

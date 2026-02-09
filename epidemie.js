@@ -20,13 +20,14 @@ class Epidemie {
         this.grille = [];
 
         this.initGrille();
+
     }
 
     tauxContamination(){
         let infectes = 0;
         for(let i=0; i<this.lineLength; i++){
             for(let j=0; j<this.columnLength; j++){
-                if (this.grille[i][j] == "saine"){
+                if (this.grille[i][j] != "saine"){
                     infectes++;
                 }
             }
