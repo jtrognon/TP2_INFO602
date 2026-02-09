@@ -123,6 +123,12 @@ td{
     border: 1px solid var(--darkBrown);
 }
 
+#epidemic td{
+    background: linear-gradient(var(--grey), var(--darkGrey));
+
+    border: 1px solid var(--darkerGrey);
+}
+
 
 /* borders */
 
@@ -164,6 +170,32 @@ tr:last-child td:last-child{
 
 
 
-.alive::after{
-    content: "\1F335"; /* chicken emoji */
+#section1D .alive::after{
+    content: "\1F335"; /* cactus emoji */
+}
+
+#life .alive::after{
+    content: "\1F423"; /* chicken emoji */
+}
+
+
+/* "saine",
+"morte",
+"malade",
+"immunisee" */
+
+#epidemic .saine::after{
+    content: "\1F9D1"; /* healthy emoji */
+}
+
+#epidemic .morte::after{
+    content: "\1F9DF"; /* dead emoji */
+}
+
+#epidemic .malade::after{
+    content: "\1F637"; /* sick emoji */
+}
+
+#epidemic .immunisee::after{
+    content: "\1F489"; /* chicken emoji */
 }

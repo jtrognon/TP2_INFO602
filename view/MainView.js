@@ -15,6 +15,7 @@ class MainView {
         // Sections
         this.create1DSection(document.body);
         this.createGameOfLifeSection(document.body);
+        this.createEpidemicSection(document.body);
     }
 
 
@@ -56,7 +57,32 @@ class MainView {
 
         setInterval(_ => {
             gol.next();
-            gridGOL.updateGrid();
+            
+            gridGOL.updateGrid(gol.getGrid());
+            
+        }, this.updateTime)
+    }
+
+
+    createEpidemicSection(container){
+        // Section
+        const sectionEpidemic = document.createElement("section");
+        sectionEpidemic.id = "sectionEpidemic";
+        container.appendChild(sectionEpidemic);
+
+        // Title
+        const title = document.createElement("h2");
+        title.innerHTML = "Épidémie"
+        sectionEpidemic.appendChild(title);
+
+        // Grid
+        let epidemic = new Epidemie(10, 10, 0.5, 0.5)
+        let gridEpidemic = new GridEpidemic(sectionEpidemic, epidemic.getGrid(), 10, 10);
+
+        setInterval(_ => {
+            epidemic.next();
+            gridEpidemic.updateGrid(epidemic.getGrid());
+            
         }, this.updateTime)
     }
 }

@@ -1,4 +1,4 @@
-class Grid2D {
+class GridEpidemic {
     container;
 
     // Size
@@ -23,7 +23,7 @@ class Grid2D {
 
         // Grid
         let grid = document.createElement("table");
-        grid.id = "life";
+        grid.id = "epidemic";
         this.container.appendChild(grid);
         
         // init cells
@@ -48,13 +48,11 @@ class Grid2D {
     updateGrid(values){
         for (let i = 0; i < this.nbRows; i++) {
             for (let j = 0; j < this.nbColumns; j++) {
-                if (values[i][j] == 1){
-                    this.cells[i][j].classList.add("alive");
-                } else{
-                    this.cells[i][j].classList.remove("alive");
-                }
+                let cell = this.cells[i][j];
+                
+                cell.setAttribute("class", "");
+                cell.classList.add(values[i][j]);
             }
-
         }
     }
 }

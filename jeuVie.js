@@ -123,6 +123,8 @@ class Grid {
                 }
             }
         }
+
+        this.grille = nouvelleGrille;
     }
 
     getGrid(){

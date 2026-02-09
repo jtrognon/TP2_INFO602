@@ -20,7 +20,7 @@ class Epidemie {
         this.grille = [];
 
         this.initGrille();
-        this.simuler();
+        // this.simuler();
     }
 
     random_choice(){
@@ -169,8 +169,13 @@ class Epidemie {
                 }
             }
         }
+        
         this.grille = nouvelleGrille;
+    }
+
+    getGrid(){
+        return this.grille;
     }
 }
 
-new Epidemie(100,100,0.5,0.5);
+// new Epidemie(100,100,0.5,0.5);
