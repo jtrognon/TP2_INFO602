@@ -20,12 +20,40 @@ class Epidemie {
         this.grille = [];
 
         this.initGrille();
+    }
 
-        this.simuler_immuniser();
-        console.log(this.p2);
-        //console.log(this.grille);
-        //this.simuler();
-        //console.log(this.p2);
+    tauxContamination(){
+        let infectes = 0;
+        for(let i=0; i<this.lineLength; i++){
+            for(let j=0; j<this.columnLength; j++){
+                if (this.grille[i][j] == "saine"){
+                    infectes++;
+                }
+            }
+        }
+        return (infectes / (this.lineLength * this.columnLength)) *100;
+    }
+
+    trouverSeuilP2() {
+        this.p1 = 0.5;
+        for (let p2_test = 0.1; p2_test <= 1.0; p2_test += 0.05) {
+            
+            this.grille = [];
+            this.initGrille();
+            this.p2 = p2_test;
+
+            let iterations = 0;
+            while (!this.estStable() && iterations < 1000) {
+                this.next();
+                iterations++;
+            }
+
+            let taux = this.tauxContamination();
+
+            if (taux >= 95) {
+                return p2_test;
+            }
+        }
     }
 
     initGrille(){
@@ -51,11 +79,11 @@ class Epidemie {
     }
 
     simuler() {
-        for (this.p2; this.p2 < 1.0; this.p2 += 0.05) {
+        let tour = 0;
+
+        while (!this.estStable() && tour<1000){
             this.next();
-            if(this.estStable()) {
-                break;
-            }
+            tour++;
         }
     }
 
@@ -63,17 +91,17 @@ class Epidemie {
         let imu = 0.3;
         for(let i = 0; i<this.lineLength; i++) {
             for(let j = 0; j<this.columnLength; j++) {
-                if(Math.random() < imu) {
+                if(this.grille[i][j] == "saine" && Math.random() < imu) {
                     this.grille[i][j] = "immunisee";
                 }
             }
         }
 
-        for (this.p2; this.p2 < 1.0; this.p2 += 0.05) {
+        let tour = 0;
+
+        while (!this.estStable() && tour<1000){
             this.next();
-            if(this.estStable()) {
-                break;
-            }
+            tour++;
         }
     }
 
