@@ -117,7 +117,7 @@ td{
 }
 
 
-#life td{
+#life td, #glider td{
     background: linear-gradient(var(--brown), var(--darkerBrown));
 
     border: 1px solid var(--darkBrown);
@@ -174,7 +174,7 @@ tr:last-child td:last-child{
     content: "\1F335"; /* cactus emoji */
 }
 
-#life .alive::after{
+#life .alive::after, #glider .alive::after{
     content: "\1F423"; /* chicken emoji */
 }
 

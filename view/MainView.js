@@ -51,14 +51,26 @@ class MainView {
         title.innerHTML = "Jeu de la vie"
         sectionGOL.appendChild(title);
 
-        // Grid
+        // Random grid
         let gol = new Grid(10, 10)
-        let gridGOL = new Grid2D(sectionGOL, gol.getGrid(), 10, 10);
+        let gridGOL = new Grid2D(sectionGOL, gol.getGrid(), 10, 10, "life");
+
+        // Glider
+        let golGlider = Grid.glider();
+        let gridGOLGlider = new Grid2D(sectionGOL, golGlider.getGrid(), 20, 36, "glider");
+
 
         setInterval(_ => {
             gol.next();
             
             gridGOL.updateGrid(gol.getGrid());
+            
+        }, this.updateTime)
+
+        setInterval(_ => {
+            golGlider.next();
+            
+            gridGOLGlider.updateGrid(golGlider.getGrid());
             
         }, this.updateTime)
     }

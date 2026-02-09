@@ -1,5 +1,6 @@
 class Grid2D {
     container;
+    id;
 
     // Size
     nbRows;
@@ -8,8 +9,9 @@ class Grid2D {
     // Cells
     cells; // graphical cells
 
-    constructor(container, values, nbRows, nbColumns) {
+    constructor(container, values, nbRows, nbColumns, id) {
         this.container = container;
+        this.id = id;
 
         // Size
         this.nbRows = nbRows;
@@ -23,7 +25,7 @@ class Grid2D {
 
         // Grid
         let grid = document.createElement("table");
-        grid.id = "life";
+        grid.id = this.id;
         this.container.appendChild(grid);
         
         // init cells
