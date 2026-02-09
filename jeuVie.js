@@ -9,9 +9,9 @@ class Grid {
         this.grille = [];
 
         this.initGrille();
-        console.log(this.grille);
+        //console.log(this.grille);
         this.next();
-        console.log(this.grille)
+        //console.log(this.grille);
     }
 
     random_choice(){
@@ -100,14 +100,26 @@ class Grid {
     }
 
     next(){
+        let nouvelleGrille = [];
+
+        for (let i=0; i < this.lineLength; i++) {
+            let ligne = [];
+            for (let j=0; j<this.columnLength; j++) {
+                ligne.push(this.grille[i][j]);
+            }
+            nouvelleGrille.push(ligne);
+        }
+
         for (let i=0; i<this.lineLength; i++){
             for (let j=0; j<this.columnLength; j++){
                 const nb_voisins = this.nb_voisins(i,j);
 
-                if(this.grille == 1 && nb_voisins == 2 || this.grille == 1 && nb_voisins == 3){
-                    this.grille == 1;
-                } else if(this.grille == 0 && nb_voisins == 3) {
-                    this.grille == 0;
+                if(this.grille[i][j] == 1 && nb_voisins == 2 || this.grille[i][j] == 1 && nb_voisins == 3){
+                    nouvelleGrille[i][j] = 1;
+                } else if(this.grille[i][j] == 0 && nb_voisins == 3) {
+                    nouvelleGrille[i][j] = 1;
+                } else {
+                    nouvelleGrille[i][j] = 0;
                 }
             }
         }
