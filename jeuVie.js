@@ -3,13 +3,12 @@ class Grid {
     columnLength;
     grille;
 
-    constructor(lineLength, columnLength) {
+    constructor(lineLength, columnLength, randGen=true) {
         this.lineLength = lineLength;
         this.columnLength = columnLength;
         this.grille = [];
 
-        this.initGrille();
-        this.next();
+        this.initGrille(randGen);
     }
 
     random_choice(){
@@ -18,14 +17,24 @@ class Grid {
         return choice[ind];
     }
 
-    initGrille(){
-        for (let i=0; i<this.lineLength; i++){
-            let line = [];
-            this.grille.push(line);
-            for (let j=0; j<this.columnLength; j++) {
-                line.push(this.random_choice());
+    initGrille(randGen){
+        if (randGen){
+            for (let i=0; i<this.lineLength; i++){
+                let line = [];
+                this.grille.push(line);
+                for (let j=0; j<this.columnLength; j++) {
+                    line.push(this.random_choice());
+                }
+            } 
+        } else {
+            for (let i=0; i<this.lineLength; i++){
+                let line = [];
+                line.length = this.columnLength;
+                line.fill(0);
+
+                this.grille.push(line);
             }
-        } 
+        }
     }
 
     nb_voisins(i,j) { 
@@ -36,17 +45,17 @@ class Grid {
                 this.grille[i][j+1] +   // Milieu droite
                 this.grille[i+1][j] +   // Bas milieu
                 this.grille[i+1][j+1];  // Bas droite
-        } else if (i == 0 && j == this.lineLength-1) {
+        } else if (i == 0 && j == this.columnLength-1) {
             nb_voisins = 
                 this.grille[i][j-1] +   // Milieu gauche
                 this.grille[i+1][j-1] + // Bas gauche
                 this.grille[i+1][j];    // Bas milieu
-        } else if (i == this.columnLength-1 && j == 0) {
+        } else if (i == this.lineLength-1 && j == 0) {
             nb_voisins = 
                 this.grille[i-1][j] +   // Haut milieu
                 this.grille[i-1][j+1] + // Haut droite
                 this.grille[i][j+1];    // Milieu droite
-        } else if (i == this.columnLength-1 && j == this.lineLength-1) {
+        } else if (i == this.lineLength-1 && j == this.columnLength-1) {
             nb_voisins = 
                 this.grille[i-1][j-1] + // Haut gauche
                 this.grille[i-1][j] +   // Haut milieu
@@ -67,14 +76,14 @@ class Grid {
                 this.grille[i][j+1] +   // Milieu droite
                 this.grille[i+1][j] +   // Bas milieu
                 this.grille[i+1][j+1];  // Bas droite
-        } else if (j == this.lineLength-1) {
+        } else if (j == this.columnLength-1) {
             nb_voisins = 
                 this.grille[i-1][j-1] + // Haut gauche
                 this.grille[i-1][j] +   // Haut milieu
                 this.grille[i][j-1] +   // Milieu gauche
                 this.grille[i+1][j-1] + // Bas gauche
                 this.grille[i+1][j];    // Bas milieu
-        } else if (i == this.columnLength-1){
+        } else if (i == this.lineLength-1){
             nb_voisins = 
                 this.grille[i-1][j-1] + // Haut gauche
                 this.grille[i-1][j] +   // Haut milieu
@@ -127,5 +136,66 @@ class Grid {
 
     getGrid(){
         return this.grille;
+    }
+
+    setGrid(nouvelleGrille){
+        this.grille = nouvelleGrille;
+    }
+
+    static glider(){
+        let grid = new Grid(20, 36, false);
+
+        let grille = grid.getGrid();
+        
+
+        grille[0][24] = 1;
+
+        grille[1][22] = 1;
+        grille[1][24] = 1;
+
+        grille[2][12] = 1;
+        grille[2][13] = 1;
+        grille[2][20] = 1;
+        grille[2][21] = 1;
+        grille[2][34] = 1;
+        grille[2][35] = 1;
+
+        grille[3][11] = 1;
+        grille[3][15] = 1;
+        grille[3][20] = 1;
+        grille[3][21] = 1;
+        grille[3][34] = 1;
+        grille[3][35] = 1;
+
+        grille[4][0] = 1;
+        grille[4][1] = 1;
+        grille[4][10] = 1;
+        grille[4][16] = 1;
+        grille[4][20] = 1;
+        grille[4][21] = 1;
+
+        grille[5][0] = 1;
+        grille[5][1] = 1;
+        grille[5][10] = 1;
+        grille[5][14] = 1;
+        grille[5][16] = 1;
+        grille[5][17] = 1;
+        grille[5][22] = 1;
+        grille[5][24] = 1;
+
+        grille[6][10] = 1;
+        grille[6][16] = 1;
+        grille[6][24] = 1;
+
+        grille[7][11] = 1;
+        grille[7][15] = 1;
+
+        grille[8][12] = 1;
+        grille[8][13] = 1;
+
+
+        grid.setGrid(grille);
+
+        return grid;
     }
 }
