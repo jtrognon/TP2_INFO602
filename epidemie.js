@@ -20,12 +20,12 @@ class Epidemie {
         this.grille = [];
 
         this.initGrille();
-        // this.simuler();
-    }
 
-    random_choice(){
-        const ind = Math.floor(Math.random() * this.etat.length);
-        return this.etat[ind];
+        this.simuler_immuniser();
+        console.log(this.p2);
+        //console.log(this.grille);
+        //this.simuler();
+        //console.log(this.p2);
     }
 
     initGrille(){
@@ -33,9 +33,10 @@ class Epidemie {
             let line = [];
             this.grille.push(line);
             for (let j=0; j<this.columnLength; j++) {
-                line.push(this.random_choice());
+                line.push("saine");
             }
         } 
+        this.grille[Math.floor(Math.random() * this.lineLength)][Math.floor(Math.random() * this.columnLength)] = "malade";
     }
 
     estStable() {
@@ -50,81 +51,94 @@ class Epidemie {
     }
 
     simuler() {
-        let tour = 0;
-        console.log("grille initiale : " + this.grille);
-
-        while (!this.estStable() && tour < 1000) {
+        for (this.p2; this.p2 < 1.0; this.p2 += 0.05) {
             this.next();
-            tour++;
-            console.log("Tour : " + tour + "termine");
+            if(this.estStable()) {
+                break;
+            }
+        }
+    }
+
+    simuler_immuniser(){
+        let imu = 0.3;
+        for(let i = 0; i<this.lineLength; i++) {
+            for(let j = 0; j<this.columnLength; j++) {
+                if(Math.random() < imu) {
+                    this.grille[i][j] = "immunisee";
+                }
+            }
         }
 
-        console.log("fin epidemie en " + tour + "tour");
-        console.log("grille finale :" + this.grille);
+        for (this.p2; this.p2 < 1.0; this.p2 += 0.05) {
+            this.next();
+            if(this.estStable()) {
+                break;
+            }
+        }
     }
 
     nb_voisins(i,j) { 
         let nb_voisins = 0;
         
         if (i == 0 && j == 0){
-                if(this.grille[i][j+1]) nb_voisins++;   // Milieu droite
-                if(this.grille[i+1][j]) nb_voisins++;   // Bas milieu
-                if(this.grille[i+1][j+1]) nb_voisins++;  // Bas droite
+                if(this.grille[i][j+1] == "malade") nb_voisins++;   // Milieu droite
+                if(this.grille[i+1][j] == "malade") nb_voisins++;   // Bas milieu
+                if(this.grille[i+1][j+1] == "malade") nb_voisins++;  // Bas droite
 
-        } else if (i == 0 && j == this.lineLength-1) {
-                if(this.grille[i][j-1]) nb_voisins++; // Milieu gauche
-                if(this.grille[i+1][j-1]) nb_voisins++; // Bas gauche
-                if(this.grille[i+1][j]) nb_voisins++;    // Bas milieu
+        } else if (i == 0 && j == this.columnLength-1) {
+                if(this.grille[i][j-1] == "malade") nb_voisins++; // Milieu gauche
+                if(this.grille[i+1][j-1] == "malade") nb_voisins++; // Bas gauche
+                if(this.grille[i+1][j] == "malade") nb_voisins++;    // Bas milieu
 
-        } else if (i == this.columnLength-1 && j == 0) {
-                if(this.grille[i-1][j]) nb_voisins++;   // Haut milieu
-                if(this.grille[i-1][j+1]) nb_voisins++; // Haut droite
-                if(this.grille[i][j+1]) nb_voisins++;   // Milieu droite
+        } else if (i == this.lineLength-1 && j == 0) {
+                if(this.grille[i-1][j] == "malade") nb_voisins++;   // Haut milieu
+                if(this.grille[i-1][j+1] == "malade") nb_voisins++; // Haut droite
+                if(this.grille[i][j+1] == "malade") nb_voisins++;   // Milieu droite
 
-        } else if (i == this.columnLength-1 && j == this.lineLength-1) {
-                if(this.grille[i-1][j-1]) nb_voisins++; // Haut gauche
-                if(this.grille[i-1][j]) nb_voisins++;   // Haut milieu
-                if(this.grille[i][j-1]) nb_voisins++;   // Milieu gauche
+        } else if (i == this.lineLength-1 && j == this.columnLength-1) {
+                if(this.grille[i-1][j-1] == "malade") nb_voisins++; // Haut gauche
+                if(this.grille[i-1][j] == "malade") nb_voisins++;   // Haut milieu
+                if(this.grille[i][j-1] == "malade") nb_voisins++;   // Milieu gauche
 
 
         } else if (i == 0) {
-                if(this.grille[i][j-1]) nb_voisins++;   // Milieu gauche
-                if(this.grille[i][j+1]) nb_voisins++;   // Milieu droite
-                if(this.grille[i+1][j-1]) nb_voisins++; // Bas gauche
-                if(this.grille[i+1][j]) nb_voisins++;   // Bas milieu
-                if(this.grille[i+1][j+1]) nb_voisins++;  // Bas droite
+                if(this.grille[i][j-1] == "malade") nb_voisins++;   // Milieu gauche
+                if(this.grille[i][j+1] == "malade") nb_voisins++;   // Milieu droite
+                if(this.grille[i+1][j-1] == "malade") nb_voisins++; // Bas gauche
+                if(this.grille[i+1][j] == "malade") nb_voisins++;   // Bas milieu
+                if(this.grille[i+1][j+1] == "malade") nb_voisins++;  // Bas droite
 
         } else if (j == 0){
-                if(this.grille[i-1][j]) nb_voisins++;   // Haut milieu
-                if(this.grille[i-1][j+1]) nb_voisins++; // Haut droite
-                if(this.grille[i][j+1]) nb_voisins++;   // Milieu droite
-                if(this.grille[i+1][j]) nb_voisins++;   // Bas milieu
-                if(this.grille[i+1][j+1]) nb_voisins++;  // Bas droite
+                if(this.grille[i-1][j] == "malade") nb_voisins++;   // Haut milieu
+                if(this.grille[i-1][j+1] == "malade") nb_voisins++; // Haut droite
+                if(this.grille[i][j+1] == "malade") nb_voisins++;   // Milieu droite
+                if(this.grille[i+1][j] == "malade") nb_voisins++;   // Bas milieu
+                if(this.grille[i+1][j+1] == "malade") nb_voisins++;  // Bas droite
 
-        } else if (j == this.lineLength-1) {
-                if(this.grille[i-1][j-1]) nb_voisins++; // Haut gauche
-                if(this.grille[i-1][j]) nb_voisins++;   // Haut milieu
-                if(this.grille[i][j-1]) nb_voisins++;   // Milieu gauche
-                if(this.grille[i+1][j-1]) nb_voisins++; // Bas gauche
-                if(this.grille[i+1][j]) nb_voisins++;   // Bas milieu
+        } else if (j == this.columnLength-1) {
+                if(this.grille[i-1][j-1] == "malade") nb_voisins++; // Haut gauche
+                if(this.grille[i-1][j] == "malade") nb_voisins++;   // Haut milieu
+                if(this.grille[i][j-1] == "malade") nb_voisins++;   // Milieu gauche
+                if(this.grille[i+1][j-1] == "malade") nb_voisins++; // Bas gauche
+                if(this.grille[i+1][j] == "malade") nb_voisins++;   // Bas milieu
 
-        } else if (i == this.columnLength-1){
-                if(this.grille[i-1][j-1]) nb_voisins++; // Haut gauche
-                if(this.grille[i-1][j]) nb_voisins++;   // Haut milieu
-                if(this.grille[i-1][j+1]) nb_voisins++; // Haut droite
-                if(this.grille[i][j-1]) nb_voisins++;   // Milieu gauche
-                if(this.grille[i][j+1]) nb_voisins++;   // Milieu droite
+        } else if (i == this.lineLength-1){
+                if(this.grille[i-1][j-1] == "malade") nb_voisins++; // Haut gauche
+                if(this.grille[i-1][j] == "malade") nb_voisins++;   // Haut milieu
+                if(this.grille[i-1][j+1] == "malade") nb_voisins++; // Haut droite
+                if(this.grille[i][j-1] == "malade") nb_voisins++;   // Milieu gauche
+                if(this.grille[i][j+1] == "malade") nb_voisins++;   // Milieu droite
 
 
         } else {
-                if(this.grille[i-1][j-1]) nb_voisins++; // Haut gauche
-                if(this.grille[i-1][j]) nb_voisins++;   // Haut milieu
-                if(this.grille[i-1][j+1]) nb_voisins++; // Haut droite
-                if(this.grille[i][j-1]) nb_voisins++;   // Milieu gauche
-                if(this.grille[i][j+1]) nb_voisins++;   // Milieu droite
-                if(this.grille[i+1][j-1]) nb_voisins++; // Bas gauche
-                if(this.grille[i+1][j]) nb_voisins++;   // Bas milieu
-                if(this.grille[i+1][j+1]) nb_voisins++;  // Bas droite
+                if(this.grille[i-1][j-1] == "malade") nb_voisins++; // Haut gauche
+                if(this.grille[i-1][j] == "malade") nb_voisins++;   // Haut milieu
+                if(this.grille[i-1][j+1] == "malade") nb_voisins++; // Haut droite
+                if(this.grille[i][j-1] == "malade") nb_voisins++;   // Milieu gauche
+                if(this.grille[i][j+1] == "malade") nb_voisins++;   // Milieu droite
+                if(this.grille[i+1][j-1] == "malade") nb_voisins++; // Bas gauche
+                if(this.grille[i+1][j] == "malade") nb_voisins++;   // Bas milieu
+                if(this.grille[i+1][j+1] == "malade") nb_voisins++;  // Bas droite
         }
         return nb_voisins;
     }
@@ -177,5 +191,3 @@ class Epidemie {
         return this.grille;
     }
 }
-
-// new Epidemie(100,100,0.5,0.5);

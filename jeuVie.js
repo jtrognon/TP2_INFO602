@@ -9,9 +9,7 @@ class Grid {
         this.grille = [];
 
         this.initGrille();
-        //console.log(this.grille);
         this.next();
-        //console.log(this.grille);
     }
 
     random_choice(){
@@ -131,5 +129,3 @@ class Grid {
         return this.grille;
     }
 }
-
-// new Grid(10,10);
