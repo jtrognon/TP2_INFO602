@@ -112,6 +112,10 @@ class Grid {
             }
         }
     }
+
+    getGrid(){
+        return this.grille;
+    }
 }
 
-new Grid(10,10);
+// new Grid(10,10);

@@ -12,8 +12,9 @@ class MainView {
         document.body.appendChild(title);
 
         
-        // 1DGrid section
+        // Sections
         this.create1DSection(document.body);
+        this.createGameOfLifeSection(document.body);
     }
 
 
@@ -35,6 +36,27 @@ class MainView {
         setInterval(_ => {
             automate1D.next();
             grid1D.updateGrid();
+        }, this.updateTime)
+    }
+
+    createGameOfLifeSection(container){
+        // Section
+        const sectionGOL = document.createElement("section");
+        sectionGOL.id = "sectionGOL";
+        container.appendChild(sectionGOL);
+
+        // Title
+        const title = document.createElement("h2");
+        title.innerHTML = "Jeu de la vie"
+        sectionGOL.appendChild(title);
+
+        // Grid
+        let gol = new Grid(10, 10)
+        let gridGOL = new Grid2D(sectionGOL, gol.getGrid(), 10, 10);
+
+        setInterval(_ => {
+            gol.next();
+            gridGOL.updateGrid();
         }, this.updateTime)
     }
 }

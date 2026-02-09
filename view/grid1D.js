@@ -54,9 +54,9 @@ class Grid1D {
 
     updateGrid(){
         for (let i = 0; i < this.nbCells; i++) {
-            if (this.values[i] == 1 && !this.cells[i].classList.contains("alive")){
+            if (this.values[i] == 1){
                 this.cells[i].classList.add("alive");
-            } else if (this.cells[i].classList.contains("alive")) {
+            } else{
                 this.cells[i].classList.remove("alive");
             }
         }

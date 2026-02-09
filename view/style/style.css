@@ -80,6 +80,7 @@ section{
     /* position + size */
     padding: 10px;
     padding-bottom: 30px;
+    margin-bottom: 5vh;
 
     /* color */
     background: linear-gradient(to bottom, var(--green), var(--darkGreen));
@@ -100,14 +101,7 @@ h2{
 
 
 table{
-    /* size */
-    /* width: 80%; */
-
-    /* border */
     border-spacing: 0;
-    /* border: 1px solid var(--darkBrown);
-    border-radius: 5px; */
-    /* border-collapse: collapse; */
 }
 
 td{
